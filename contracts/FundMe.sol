@@ -6,10 +6,16 @@ contract FundMe {
     mapping(address => uint256) public addressToAmountFunded;
     address[] public funders;
     address public owner = msg.sender;
+    uint256 total = 0;
 
     function fund() public payable {
         addressToAmountFunded[msg.sender] += msg.value;
         funders.push(msg.sender);
+        total += msg.value;
+    }
+
+    function getTotal() public view returns (uint256) {
+        return total;
     }
 
     modifier onlyOwner() {

@@ -3,15 +3,14 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 import { ErrorMessage } from '@hookform/error-message'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { toast } from 'react-toastify'
 
 const schema = yup
   .object({
-    amount: yup.number().positive().integer().required(),
+    amount: yup.number().positive().required(),
   })
   .required()
 
-export default function FundMe() {
+export default function FundMe({ fund }) {
   const {
     control,
     handleSubmit,
@@ -21,8 +20,7 @@ export default function FundMe() {
   })
 
   const onSubmit = (data) => {
-    console.log(data)
-    toast.success('Wow so easy!')
+    fund(data.amount)
   }
 
   return (
